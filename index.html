@@ -1,72 +1,30 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KnowLedge Quiz</title>
-
-  <link rel="stylesheet" href="style.css">
-
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      max-width: 700px;
-      margin: auto;
-      padding: 15px;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    #timer {
-      font-size: 18px;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    button {
-      padding: 8px 14px;
-      margin: 8px 4px;
-      font-size: 16px;
-    }
-
-    .question {
-      margin-top: 15px;
-      padding: 15px;
-      border-radius: 10px;
-      background: #f6f6f6;
-    }
-  </style>
 </head>
 
 <body>
 
-  <h1>🧠 KnowLedge Quiz</h1>
+<h1>🧠 KnowLedge Quiz</h1>
 
-  <!-- CHỌN MÔN -->
-  <div id="setup">
-    <label for="subjectSelect">📘 Chọn môn học</label><br>
-    <select id="subjectSelect"></select><br>
+<label>📘 Chọn môn học</label><br>
+<select id="subjectSelect"></select>
+<br><br>
 
-    <button onclick="startQuiz()">▶ Bắt đầu</button>
-  </div>
+<button id="startBtn">▶ Bắt đầu</button>
 
-  <!-- TIMER -->
-  <p id="timer">⏰ 50:00</p>
+<p id="timer">⏰ 50:00</p>
 
-  <!-- KHU VỰC CÂU HỎI -->
-  <div id="quiz"></div>
+<div id="quiz"></div>
 
-  <!-- NỘP BÀI -->
-  <button id="submitBtn" style="display:none;">📝 Nộp bài</button>
+<button id="submitBtn" style="display:none;">📝 Nộp bài</button>
 
-  <!-- KẾT QUẢ -->
-  <div id="result"></div>
+<div id="result"></div>
 
-  <!-- SCRIPT -->
-  <script src="questions.js"></script>
-  <script src="script.js"></script>
-
+<script src="questions.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
