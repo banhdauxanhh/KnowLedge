@@ -1,104 +1,113 @@
 const subjects = {
   "Tin học đại cương": [
-    {
-      question: "Trong Excel, hàm MOD trả về kết quả gì?",
-      options: [
-        "Phần dư của phép chia giữa hai số",
-        "Giá trị nhỏ nhất trong một tập hợp số",
-        "Giá trị lớn nhất trong một tập hợp số",
-        "Số nguyên sau khi chia hai số"
-      ],
-      answer: 0
-    },
-    {
-      question: "Kết quả của công thức =RIGHT(\"Microsoft\", 4) là gì?",
-      options: ["Micr", "Micro", "soft", "sof"],
-      answer: 2
-    },
-    {
-      question: "Để thêm các ghi chú vào một ô trong Excel, sử dụng thao tác nào?",
-      options: [
-        "Data > Add Note",
-        "Home > Insert Note",
-        "Insert > Comment",
-        "View > Add Annotation"
-      ],
-      answer: 2
-    },
-    {
-      question: "Khối nào trong CPU có nhiệm vụ giải mã các lệnh?",
-      options: [
-        "Tập các thanh ghi",
-        "Khối điều khiển",
-        "Hệ thống vào-ra",
-        "Khối tính toán số học và logic"
-      ],
-      answer: 1
-    },
-    {
-      question: "Tính năng nào trong Word giúp bạn tạo bảng mục lục tự động?",
-      options: [
-        "Layout > Index",
-        "Insert > Index",
-        "References > Table of Contents",
-        "Review > Table of Contents"
-      ],
-      answer: 2
-    },
+    { question: "Trong Excel, hàm MOD trả về kết quả gì?", options: ["Phần dư của phép chia giữa hai số","Giá trị nhỏ nhất trong một tập hợp số","Giá trị lớn nhất trong một tập hợp số","Số nguyên sau khi chia hai số"], answer: 0 },
+    { question: "Kết quả của công thức =RIGHT(\"Microsoft\", 4) là gì?", options: ["Micr","Micro","soft","sof"], answer: 2 },
+    { question: "Để thêm các ghi chú vào một ô trong Excel, sử dụng thao tác nào?", options: ["Data > Add Note","Home > Insert Note","Insert > Comment","View > Add Annotation"], answer: 2 },
+    { question: "Khối nào trong CPU có nhiệm vụ giải mã các lệnh?", options: ["Tập các thanh ghi","Khối điều khiển","Hệ thống vào-ra","Khối tính toán số học và logic"], answer: 1 },
+    { question: "Tính năng nào trong Word giúp bạn tạo bảng mục lục tự động?", options: ["Layout > Index","Insert > Index","References > Table of Contents","Review > Table of Contents"], answer: 2 },
+    { question: "Để chỉnh sửa một đối tượng đã chèn vào slide PowerPoint 2019, vào tab nào?", options: ["Design","Format","Animations","Home"], answer: 1 },
+    { question: "Lợi ích của việc sử dụng VPN khi duyệt Internet là gì?", options: ["Tăng tốc độ tải trang","Tăng độ sáng của màn hình","Bảo mật dữ liệu và ẩn địa chỉ IP","Giảm mức sử dụng dữ liệu"], answer: 2 },
+    { question: "Hàm TEXT trong Excel có tác dụng gì?", options: ["Định dạng một giá trị số hoặc ngày tháng thành chuỗi văn bản","Tính tổng các giá trị văn bản","Tạo bảng từ chuỗi văn bản","Tìm kiếm và thay thế chuỗi"], answer: 0 },
+    { question: "Để tạo danh sách thả xuống trong Excel, sử dụng tính năng nào?", options: ["View > Select Options","Data Validation > List","Format Cells > Data List","Insert > Drop-down Menu"], answer: 1 },
+    { question: "Trong Microsoft Word 2019, Thesaurus dùng để làm gì?", options: ["Đếm từ","Kiểm tra chính tả","Đề xuất từ đồng nghĩa","Tạo mục lục"], answer: 2 },
 
-    {
-      question: "Tường lửa (firewall) có vai trò gì trong bảo mật?",
-      options: [
-        "Mở các trang web bị chặn",
-        "Tăng tốc độ tải tệp",
-        "Chặn các kết nối không an toàn từ Internet",
-        "Kiểm soát thông tin trên mạng xã hội"
-      ],
-      answer: 2
-    },
+    { question: "Để chèn biểu đồ Excel vào PowerPoint 2019, dùng tính năng nào?", options: ["Design > Chart","View > Insert Chart","Insert > Chart > Excel Spreadsheet","Insert > Data"], answer: 2 },
+    { question: "Phím tắt khóa màn hình Windows 10 là gì?", options: ["Windows + K","Windows + L","Ctrl + K","Ctrl + L"], answer: 1 },
+    { question: "Để chèn biểu đồ vào Word 2019, vào tab nào?", options: ["Layout","Insert","Review","Home"], answer: 1 },
+    { question: "Tường lửa (Firewall) có vai trò gì?", options: ["Mở các trang web bị chặn","Tăng tốc độ tải tệp","Chặn các kết nối không an toàn từ Internet","Kiểm soát mạng xã hội"], answer: 2 },
+    { question: "Navigation Pane trong Word giúp làm gì?", options: ["Định dạng tài liệu","In tài liệu","Thêm liên kết","Duyệt và tìm kiếm nội dung"], answer: 3 },
+    { question: "Phím tắt mở chức năng tìm kiếm trong Word?", options: ["Ctrl + D","Ctrl + G","Ctrl + F","Ctrl + H"], answer: 2 },
+    { question: "Malware thường lây nhiễm qua đâu?", options: ["Chơi game","Tắt máy","Tải file từ web không tin cậy","In tài liệu"], answer: 2 },
+    { question: "Hàm FORECAST trong Excel dùng để làm gì?", options: ["Tạo biểu đồ","Dự đoán giá trị tương lai","Phân tích dữ liệu","Lập kế hoạch"], answer: 1 },
+    { question: "Hàm ABS trong Excel trả về gì?", options: ["Tổng","Trung bình","Giá trị nhỏ nhất","Giá trị tuyệt đối"], answer: 3 },
+    { question: "Công thức =SUBSTITUTE(\"2024-10-06\",\"-\",\"/\") cho kết quả gì?", options: ["2024/10/06","2024-10/06","2024/10-06","2024/10/06 (text)"], answer: 0 },
 
-    {
-      question: "Phần mềm độc hại (malware) có thể lây nhiễm qua cách nào?",
-      options: [
-        "Chơi trò chơi trên máy tính",
-        "Tắt máy tính",
-        "Tải tệp tin từ các trang web không tin cậy",
-        "Sử dụng email"
-      ],
-      answer: 2
-    },
+    { question: "Bật Focus Assist trong Windows 10 ở đâu?", options: ["File Explorer","Control Panel","Task Manager","Action Center"], answer: 3 },
+    { question: "Hàm INDEX trong Excel có tác dụng gì?", options: ["Trả về giá trị theo hàng và cột","Trả về giá trị lớn nhất","Tìm kiếm theo cột","Tính tổng"], answer: 0 },
+    { question: "Phím tắt chèn hyperlink trong Word?", options: ["Ctrl + L","Ctrl + K","Ctrl + J","Ctrl + T"], answer: 1 },
+    { question: "Chèn âm thanh vào PowerPoint dùng tính năng nào?", options: ["Slide Show > Audio","Animations > Sound","Insert > Audio","Design > Sound"], answer: 2 },
+    { question: "Chèn dòng trống trong Excel bằng phím nào?", options: ["Ctrl + Shift + +","Ctrl + Shift + _","Alt + I + R","Ctrl + D"], answer: 0 },
+    { question: "Tính năng Developer trong Word dùng để làm gì?", options: ["Tạo và quản lý biểu mẫu","Tạo tiêu đề","Chèn biểu đồ","Tạo bảng"], answer: 0 },
+    { question: "Thiết lập kích thước slide PowerPoint ở tab nào?", options: ["View","Design","Insert","Home"], answer: 1 },
+    { question: "Điều chỉnh tốc độ chuyển tiếp slide dùng mục nào?", options: ["Slide Show","Design","Animations","Transitions > Duration"], answer: 3 },
+    { question: "In tiêu đề bảng Excel trên mỗi trang dùng tính năng nào?", options: ["Page Layout > Print Titles","Home > Print Headers","View > Print Headers","Data > Repeat Rows"], answer: 0 },
+    { question: "Cách tránh lừa đảo mạng xã hội hiệu quả nhất?", options: ["Không nhấp link lạ","Nhấp mọi link","Chia sẻ thông tin cá nhân","Chấp nhận mọi kết bạn"], answer: 0 },
 
-    {
-      question: "Mã độc tống tiền (ransomware) hoạt động như thế nào?",
-      options: [
-        "Cải thiện bảo mật hệ thống",
-        "Chặn quảng cáo",
-        "Tăng tốc độ Internet",
-        "Mã hóa dữ liệu và yêu cầu tiền chuộc"
-      ],
-      answer: 3
-    },
+    { question: "Kiểu bố trí giúp di chuyển tự do hình ảnh trong Word?", options: ["In Line with Text","Behind Text","Top and Bottom","Square"], answer: 3 },
+    { question: "Kiểm tra phiên bản Windows dùng công cụ nào?", options: ["System Information","Task Manager","Control Panel","File Explorer"], answer: 0 },
+    { question: "Phương tiện truyền thông không dây là?", options: ["Cáp xoắn đôi","Cáp đồng trục","Sóng vô tuyến","Cáp quang"], answer: 2 },
+    { question: "Kiểm tra lỗi công thức Excel dùng tính năng nào?", options: ["What-If","Error Checking","Formula Auditing","Data Validation"], answer: 2 },
+    { question: "Ransomware hoạt động như thế nào?", options: ["Tăng bảo mật","Chặn quảng cáo","Tăng tốc mạng","Mã hóa dữ liệu và đòi tiền chuộc"], answer: 3 },
+    { question: "Công cụ nào KHÔNG phải soạn bài giảng?", options: ["PowerPoint","Facebook","Adobe Presenter","Avina"], answer: 1 },
+    { question: "Thiết bị nào không phải thiết bị vào?", options: ["Máy quét","Chuột","Màn hình","Bàn phím"], answer: 2 },
+    { question: "Chỉ truy cập website HTTPS giúp gì?", options: ["Nhanh hơn","An toàn hơn","Nhiều quảng cáo","Tải nặng hơn"], answer: 1 },
+    { question: "Slide Master dùng để làm gì?", options: ["Sắp xếp slide","Áp dụng bố cục chung","Xem văn bản","Ghi chú"], answer: 1 },
+    { question: "Thêm cột mới vào bảng Word bằng cách nào?", options: ["Enter","Chuột phải > Insert Column","Delete Column","Insert Row"], answer: 1 },
 
-    {
-      question: "Phishing là gì?",
-      options: [
-        "Dịch vụ chia sẻ tệp",
-        "Phương pháp bảo mật",
-        "Phần mềm chống virus",
-        "Kỹ thuật lừa đảo nhằm đánh cắp thông tin cá nhân"
-      ],
-      answer: 3
-    },
+    { question: "Bảo mật USB tốt nhất bằng cách nào?", options: ["Chia sẻ USB","Mã hóa dữ liệu","Đặt tên file","Mật khẩu dễ đoán"], answer: 1 },
+    { question: "Khóa tài liệu Word bằng mật khẩu ở đâu?", options: ["Insert","Layout","File > Protect Document","Review"], answer: 2 },
+    { question: "Ẩn thanh Ribbon trong Word bằng cách nào?", options: ["Nhấn mũi tên góc phải","Insert","View","Home"], answer: 0 },
+    { question: "Chia văn bản thành nhiều phần dùng tính năng nào?", options: ["Layout > Breaks","Insert > Section","Home","Review"], answer: 0 },
+    { question: "Chèn bảng trong Word dùng lệnh nào?", options: ["Chart","Shape","SmartArt","Table"], answer: 3 },
+    { question: "Chế độ Outline View dùng để làm gì?", options: ["Xem ghi chú","Trình chiếu","Xem cấu trúc văn bản","Sắp xếp slide"], answer: 2 },
+    { question: "Phần mềm hệ thống có chức năng gì?", options: ["Soạn thảo","Lập trình","Chạy game","Điều khiển phần cứng"], answer: 3 },
+    { question: "Hiển thị tệp ẩn trong Windows ở đâu?", options: ["Action Center","Task Manager","File Explorer > View > Hidden items","Settings"], answer: 2 },
+    { question: "Chèn hình ảnh từ máy tính trong Word dùng lệnh nào?", options: ["Pictures","Shapes","SmartArt","Icons"], answer: 0 },
+    { question: "Slide Show View dùng để làm gì?", options: ["Xem tất cả slide","Xem ghi chú","Xem cấu trúc","Trình chiếu toàn màn hình"], answer: 3 },
 
-    {
-      question: "Phím tắt để khóa màn hình trong Windows 10 là gì?",
-      options: [
-        "Windows + K",
-        "Windows + L",
-        "Ctrl + K",
-        "Ctrl + L"
-      ],
-      answer: 1
-    }
+    { question: "Khác biệt chính giữa phần mềm mã nguồn mở và đóng?", options: ["Không cần cài","Không ai dùng","Mã nguồn công khai","Miễn phí hơn"], answer: 2 },
+    { question: "Chọn dữ liệu không liên tiếp để vẽ biểu đồ Excel bằng cách nào?", options: ["Nhiều biểu đồ","Data Validation","Giữ Ctrl chọn vùng","CONCATENATE"], answer: 2 },
+    { question: "Chèn ngày giờ hiện tại vào Word dùng tính năng nào?", options: ["Layout","Insert > Date & Time","Text Box","Home"], answer: 1 },
+    { question: "Biện pháp ngăn chặn tấn công mã độc hiệu quả?", options: ["Cập nhật phần mềm bảo mật","Dùng Wi-Fi công cộng","Chia sẻ mật khẩu","Tải file mọi nguồn"], answer: 0 },
+    { question: "Xác thực hai yếu tố (2FA) hoạt động thế nào?", options: ["Giảm mật khẩu","Tăng tốc","Yêu cầu mã xác thực thứ hai","Chia sẻ mật khẩu"], answer: 2 },
+    { question: "Cổng thông tin điện tử là gì?", options: ["Mạng xã hội","Điểm truy cập duy nhất","Email","Web cá nhân"], answer: 1 },
+    { question: "Thêm ghi chú cho slide PowerPoint dùng tính năng nào?", options: ["Comments","Slide Notes","Notes","Annotations"], answer: 2 },
+    { question: "Thay đổi kích thước biểu tượng Desktop bằng cách nào?", options: ["Chuột phải Desktop > View","Task Manager","Settings","File Explorer"], answer: 0 },
+    { question: "Tạo footnote trong Word ở tab nào?", options: ["Layout","Insert","Review","References"], answer: 3 },
+    { question: "Animation Painter dùng để làm gì?", options: ["Sao chép hiệu ứng","Tạo biểu đồ","Chỉnh ảnh","Thêm hình"], answer: 0 },
+
+    { question: "Thêm caption cho hình ảnh trong Word dùng lệnh nào?", options: ["References > Insert Caption","Review","Layout","Insert"], answer: 0 },
+    { question: "CPU thực hiện chức năng nào?", options: ["Lưu trữ","Xử lý dữ liệu","Trao đổi","Điều khiển ngoại vi"], answer: 1 },
+    { question: "Phần mềm mã nguồn mở cho phép người dùng làm gì?", options: ["Không truy cập mã","Chỉ xem","Không chỉnh sửa","Sử dụng không cần xin phép"], answer: 3 },
+    { question: "Phím tắt tạo mục lục tự động trong Word?", options: ["Ctrl + Alt + Shift + T","Ctrl + Alt + T","Alt + Ctrl + T","Alt + Shift + T"], answer: 0 },
+    { question: "Phím tắt chèn hyperlink trong Word là?", options: ["Ctrl + J","Ctrl + L","Ctrl + H","Ctrl + K"], answer: 3 },
+    { question: "Gửi tệp lớn qua Internet nên dùng công cụ nào?", options: ["Search Engine","FTP","Trình duyệt","Cloud Storage"], answer: 3 },
+    { question: "Hàm SUMPRODUCT dùng để làm gì?", options: ["Tính tổng cột","Tổng của tích các cặp","Nhân dãy","Tổng ô số"], answer: 1 },
+    { question: "Đổi định dạng ngày tháng Excel bằng công cụ nào?", options: ["Format Cells","Insert","Data","View"], answer: 0 },
+    { question: "Keylogger là gì?", options: ["Diệt virus","Nén file","Trình duyệt","Ghi lại phím bấm"], answer: 3 },
+    { question: "E-Banking cho phép làm gì?", options: ["Chỉ rút tiền","Gửi thư","Không làm gì","Giao dịch ngân hàng điện tử"], answer: 3 },
+
+    { question: "Scale to Fit trong Excel dùng để làm gì?", options: ["Resize dữ liệu","Zoom","Vừa trang in","Định dạng ô"], answer: 2 },
+    { question: "Page Color trong Word dùng để?", options: ["Đổi màu ảnh","Đổi màu nền tài liệu","Đổi viền","Đổi chữ"], answer: 1 },
+    { question: "Đặt mật khẩu PowerPoint dùng tính năng nào?", options: ["Home","View","File > Protect Presentation","Insert"], answer: 2 },
+    { question: "E-Commerce là hình thức gì?", options: ["Mua tại cửa hàng","Mua bán qua Internet","Không mua bán","Chỉ hàng vật lý"], answer: 1 },
+    { question: "Gỡ tệp khỏi Recent Files Windows bằng cách nào?", options: ["File Explorer","Task Manager","Chuột phải > Remove from list","Settings"], answer: 2 },
+    { question: "Chèn hình ảnh từ máy tính vào Word dùng lệnh nào?", options: ["Screenshot","Picture","Shape","Chart"], answer: 1 },
+    { question: "Chèn Shape trong Word ở tab nào?", options: ["Review","Layout","Insert","View"], answer: 2 },
+    { question: "OFFSET + COUNTA thường dùng để làm gì?", options: ["Tính tổng","Đếm ô","Tạo vùng dữ liệu động","Tìm nhỏ nhất"], answer: 2 },
+    { question: "Chỉnh định dạng bảng Word dùng tab nào?", options: ["Cell Styles","Format","Table Design","Table Tools"], answer: 2 },
+    { question: "SmartArt trong Word dùng để làm gì?", options: ["Vẽ sơ đồ","Chèn biểu đồ","Chèn bảng","Chèn ảnh"], answer: 0 },
+
+    { question: "In trang tính Excel ngang dùng thao tác nào?", options: ["View","Page Layout > Orientation > Landscape","Insert","Data"], answer: 1 },
+    { question: "INDIRECT + ADDRESS trong Excel dùng để?", options: ["Định dạng ô","Tham chiếu địa chỉ ô dạng text","Tìm ô lớn nhất","Tìm email"], answer: 1 },
+    { question: "Lọc dữ liệu nhiều điều kiện trong Excel dùng tính năng nào?", options: ["Advanced Filter","Sort","Validation","Conditional Formatting"], answer: 0 },
+    { question: "Tạo hiệu ứng vào cho đối tượng PowerPoint dùng mục nào?", options: ["Slide Show","Animations > Entrance","Design","Transitions"], answer: 1 },
+    { question: "Phím tắt mở bài thuyết trình mới PowerPoint?", options: ["Ctrl + N","Ctrl + O","Ctrl + S","Ctrl + P"], answer: 0 },
+    { question: "Kết quả =TEXT(TODAY(),\"DD/MM/YYYY\") ngày 6/10/2024 là gì?", options: ["2024/10/06","10/06/2024","06/10/2024","10/06/24"], answer: 2 },
+    { question: "Kết quả =LOWER(\"MICROSOFT\") là gì?", options: ["Microsoft","MICROSOFT","soft","microsoft"], answer: 3 },
+    { question: "Thêm Action Buttons trong PowerPoint dùng tab nào?", options: ["Slide Show","Insert > Action","View","Design"], answer: 1 },
+    { question: "Check Accessibility dùng để làm gì?", options: ["Kiểm tra khả năng tiếp cận","Tìm nội dung xấu","Xóa đối tượng","Kiểm tra chính tả"], answer: 0 },
+    { question: "Máy tính điện tử bắt đầu hình thành vào thập niên nào?", options: ["1940","1950","1930","1960"], answer: 1 },
+
+    { question: "Bộ phận lưu trữ chương trình và dữ liệu là?", options: ["I/O","CPU","Bus","Bộ nhớ chính"], answer: 3 },
+    { question: "So sánh hai tài liệu Word dùng tính năng nào?", options: ["Layout","View","Review > Compare","Insert"], answer: 2 },
+    { question: "Điểm KHÔNG phải của E-Commerce?", options: ["Phải đến cửa hàng","Mua mọi nơi","Chi phí thấp","Nhanh chóng"], answer: 0 },
+    { question: "In vùng dữ liệu đã chọn trong Excel dùng tùy chọn nào?", options: ["Home","File > Print > Print Selection","Data","View"], answer: 1 },
+    { question: "Phần mềm diệt virus có vai trò gì?", options: ["Tăng hiệu suất","Tăng mạng","Loại bỏ mã độc","Tối ưu hệ điều hành"], answer: 2 },
+    { question: "Hàm AVERAGE dùng để làm gì?", options: ["Đếm ô","Tính trung bình","Tìm lớn nhất","Tính tổng"], answer: 1 },
+    { question: "Phần mềm chống mã độc làm gì?", options: ["Tải phần mềm","Loại bỏ mã độc","Giảm mạng","Chia sẻ file"], answer: 1 },
+    { question: "Theo ITAA, CNTT nghiên cứu về gì?", options: ["Hệ thống thông tin dựa vào máy tính","Tự động hóa","Phần cứng","Mạng"], answer: 0 },
+    { question: "Phishing là gì?", options: ["Chia sẻ file","Bảo mật","Diệt virus","Lừa đảo đánh cắp thông tin"], answer: 3 },
+    { question: "Lưu bảng tính Excel với tên mới dùng phím nào?", options: ["Shift + S","F12","Alt + F4","Ctrl + S"], answer: 1 }
   ]
 };
