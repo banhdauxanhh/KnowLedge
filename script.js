@@ -4,12 +4,13 @@ let score = 0;
 let wrong = [];
 let timer = 50 * 60;
 let interval;
+
 let selectedAnswer = null;
+let checked = false;
 
 const quizEl = document.getElementById("quiz");
 const timerEl = document.getElementById("timer");
 const resultEl = document.getElementById("result");
-const submitBtn = document.getElementById("submitBtn");
 const select = document.getElementById("subjectSelect");
 
 // load môn học
@@ -32,7 +33,6 @@ function startQuiz() {
 
   quizEl.innerHTML = "";
   resultEl.innerHTML = "";
-  submitBtn.style.display = "none";
 
   startTimer();
   renderQuestion();
@@ -41,6 +41,7 @@ function startQuiz() {
 function startTimer() {
   clearInterval(interval);
   timer = 50 * 60;
+
   interval = setInterval(() => {
     timer--;
     const m = Math.floor(timer / 60);
@@ -52,6 +53,8 @@ function startTimer() {
 
 function renderQuestion() {
   selectedAnswer = null;
+  checked = false;
+
   const q = questions[currentIndex];
 
   quizEl.innerHTML = `
@@ -60,36 +63,46 @@ function renderQuestion() {
 
       ${q.options.map((o, i) => `
         <label>
-          <input type="radio" name="opt" onclick="selectAnswer(${i})">
+          <input type="radio" name="opt" value="${i}">
           ${o}
         </label><br>
       `).join("")}
 
-      <button onclick="checkAnswer()">🔍 Kiểm tra</button>
+      <button id="checkBtn">🔍 Kiểm tra</button>
       <div id="feedback"></div>
     </div>
   `;
-}
 
-function selectAnswer(index) {
-  selectedAnswer = index;
+  document.querySelectorAll("input[name='opt']").forEach(radio => {
+    radio.addEventListener("change", e => {
+      if (!checked) selectedAnswer = Number(e.target.value);
+    });
+  });
+
+  document.getElementById("checkBtn").addEventListener("click", checkAnswer);
 }
 
 function checkAnswer() {
+  if (checked) return;
   if (selectedAnswer === null) {
     alert("Hãy chọn một đáp án!");
     return;
   }
 
+  checked = true;
+
   const q = questions[currentIndex];
-  const labels = document.querySelectorAll("label");
+  const labels = quizEl.querySelectorAll("label");
   const feedback = document.getElementById("feedback");
 
-  labels.forEach((l, i) => {
-    if (i === q.answer) l.classList.add("correct");
+  labels.forEach((label, i) => {
+    if (i === q.answer) label.classList.add("correct");
     if (i === selectedAnswer && selectedAnswer !== q.answer)
-      l.classList.add("wrong");
+      label.classList.add("wrong");
   });
+
+  // khoá đáp án
+  document.querySelectorAll("input[name='opt']").forEach(r => r.disabled = true);
 
   if (selectedAnswer === q.answer) {
     score++;
@@ -99,9 +112,10 @@ function checkAnswer() {
     feedback.innerHTML = `<p class="wrong">❌ SAI</p>`;
   }
 
-  quizEl.innerHTML += `
-    <button onclick="nextQuestion()">➡️ Câu tiếp theo</button>
-  `;
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent = "➡️ Câu tiếp theo";
+  nextBtn.onclick = nextQuestion;
+  quizEl.appendChild(nextBtn);
 }
 
 function nextQuestion() {
@@ -115,8 +129,6 @@ function nextQuestion() {
 
 function submitQuiz() {
   clearInterval(interval);
-  localStorage.setItem("score", score);
-  localStorage.setItem("wrong", JSON.stringify(wrong));
 
   quizEl.innerHTML = "";
   resultEl.innerHTML = `
@@ -124,6 +136,8 @@ function submitQuiz() {
     <p>Điểm: ${score} / ${questions.length}</p>
     <button onclick="reviewWrong()">Ôn lại câu sai</button>
   `;
+
+  localStorage.setItem("wrong", JSON.stringify(wrong));
 }
 
 function reviewWrong() {
