@@ -128,3 +128,8 @@ function finish() {
     <button onclick="location.reload()">🔁 Làm lại</button>
   `;
 }
+document.getElementById("submitBtn").onclick = () => {
+  if (confirm("Bạn chắc chắn muốn nộp bài?")) {
+    finish();
+  }
+};
