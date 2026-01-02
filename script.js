@@ -1,0 +1,115 @@
+let questions = [];
+let currentIndex = 0;
+let score = 0;
+let wrong = [];
+let timer = 50 * 60;
+let interval;
+
+const quizEl = document.getElementById("quiz");
+const timerEl = document.getElementById("timer");
+const resultEl = document.getElementById("result");
+const submitBtn = document.getElementById("submitBtn");
+const select = document.getElementById("subjectSelect");
+
+// load môn học
+for (let s in subjects) {
+  select.innerHTML += `<option value="${s}">${s}</option>`;
+}
+
+// trộn mảng
+function shuffle(arr) {
+  return arr.sort(() => Math.random() - 0.5);
+}
+
+function startQuiz() {
+  const subject = select.value;
+  if (!subject) return alert("Hãy chọn môn học");
+
+  questions = shuffle([...subjects[subject]]);
+  currentIndex = 0;
+  score = 0;
+  wrong = [];
+
+  quizEl.innerHTML = "";
+  resultEl.innerHTML = "";
+  submitBtn.style.display = "block";
+
+  startTimer();
+  renderQuestion();
+}
+
+function startTimer() {
+  clearInterval(interval);
+  timer = 50 * 60;
+  interval = setInterval(() => {
+    timer--;
+    const m = Math.floor(timer / 60);
+    const s = timer % 60;
+    timerEl.innerText = `⏰ ${m}:${s.toString().padStart(2, "0")}`;
+    if (timer <= 0) submitQuiz();
+  }, 1000);
+}
+
+function renderQuestion() {
+  const q = questions[currentIndex];
+  quizEl.innerHTML = `
+    <div class="question">
+      <p><b>Câu ${currentIndex + 1}:</b> ${q.question}</p>
+      ${q.options.map((o, i) => `
+        <label>
+          <input type="radio" name="opt" onclick="check(${i})">
+          ${o}
+        </label><br>
+      `).join("")}
+    </div>
+  `;
+}
+
+function check(choice) {
+  const q = questions[currentIndex];
+  const labels = document.querySelectorAll("label");
+
+  labels.forEach((l, i) => {
+    if (i === q.answer) l.classList.add("correct");
+    if (i === choice && choice !== q.answer) l.classList.add("wrong");
+  });
+
+  if (choice === q.answer) score++;
+  else wrong.push(q);
+
+  setTimeout(() => {
+    currentIndex++;
+    if (currentIndex < questions.length) renderQuestion();
+    else submitQuiz();
+  }, 800);
+}
+
+function submitQuiz() {
+  clearInterval(interval);
+  localStorage.setItem("score", score);
+  localStorage.setItem("wrong", JSON.stringify(wrong));
+
+  quizEl.innerHTML = "";
+  submitBtn.style.display = "none";
+
+  resultEl.innerHTML = `
+    <h3>🎯 Kết quả</h3>
+    <p>Điểm: ${score} / ${questions.length}</p>
+    <button onclick="reviewWrong()">Ôn lại câu sai</button>
+  `;
+}
+
+function reviewWrong() {
+  const w = JSON.parse(localStorage.getItem("wrong")) || [];
+  if (w.length === 0) {
+    resultEl.innerHTML += "<p>🎉 Không có câu sai!</p>";
+    return;
+  }
+
+  quizEl.innerHTML = w.map((q, i) => `
+    <div class="question">
+      <p><b>Câu sai ${i + 1}:</b> ${q.question}</p>
+      <p>✅ Đáp án đúng: ${q.options[q.answer]}</p>
+    </div>
+  `).join("");
+}
