@@ -2,17 +2,36 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-
-  <!-- FIX GIAO DIỆN IPHONE -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
 
   <title>KnowLedge Quiz</title>
 
   <style>
-    /* ===== FIX IOS ZOOM ===== */
-    html {
-      -webkit-text-size-adjust: 100%;
+    /* ===== IOS FIX ===== */
+    html { -webkit-text-size-adjust: 100%; }
+
+    /* ===== THEME VARIABLES ===== */
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --card: #f5f5f5;
+      --border: #d1d5db;
+      --btn: #e5e7eb;
+      --btn-text: #000000;
+      --progress-bg: #e5e7eb;
+      --progress-fill: #3b82f6;
+    }
+
+    body.dark {
+      --bg: #121212;
+      --text: #f1f1f1;
+      --card: #1e1e1e;
+      --border: #2c2c2c;
+      --btn: #2a2a2a;
+      --btn-text: #f1f1f1;
+      --progress-bg: #374151;
+      --progress-fill: #60a5fa;
     }
 
     body {
@@ -20,86 +39,104 @@
       font-size: 16px;
       margin: 0;
       padding: 16px;
-      background: #ffffff;
-      color: #000000;
+      background: var(--bg);
+      color: var(--text);
+      transition: background .25s, color .25s;
     }
 
-    /* ===== LAYOUT ===== */
     .container {
-      max-width: 720px;
+      max-width: 760px;
       margin: auto;
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
+    h1 { text-align: center; margin-bottom: 8px; }
 
-    label {
-      font-weight: 500;
-    }
-
-    select,
-    button {
+    select, button {
       font-size: 16px;
       padding: 8px 12px;
       margin-top: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--btn);
+      color: var(--btn-text);
     }
+
+    button { cursor: pointer; }
 
     #timer {
       font-size: 18px;
       font-weight: bold;
-      margin-top: 12px;
+      margin-top: 10px;
     }
 
+    /* ===== PROGRESS ===== */
+    #progressWrap { margin-top: 12px; }
+    #progressText { font-weight: 600; margin-bottom: 6px; }
+    #progressBar {
+      height: 8px;
+      background: var(--progress-bg);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    #progressFill {
+      height: 100%;
+      width: 0%;
+      background: var(--progress-fill);
+      transition: width .3s;
+    }
+
+    /* ===== QUESTION ===== */
     .question {
       margin-top: 16px;
       padding: 16px;
       border-radius: 12px;
-      background: #f5f5f5;
+      background: var(--card);
     }
 
-    #submitBtn {
-      margin-top: 16px;
+    /* ===== NAVIGATOR ===== */
+    #navigator {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
     }
+    .nav-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--btn);
+      color: var(--btn-text);
+    }
+    .nav-un { opacity: .6; }
+    .nav-sel { outline: 2px solid #3b82f6; }
+    .nav-ok { background: #86efac; color: #000; }
+    .nav-wrong { background: #fca5a5; color: #000; }
 
-    /* ===== ANIMATION CHUYỂN CÂU ===== */
+    #submitBtn { margin-top: 16px; }
+
+    /* ===== ANIMATION ===== */
     .fade-enter {
-      animation: fadeInSlide 0.3s ease forwards;
+      animation: fadeInSlide .3s ease forwards;
     }
-
-    .fade-exit {
-      animation: fadeOutSlide 0.25s ease forwards;
-    }
-
     @keyframes fadeInSlide {
-      from {
-        opacity: 0;
-        transform: translateX(15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+      from { opacity: 0; transform: translateX(15px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
-    @keyframes fadeOutSlide {
-      from {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      to {
-        opacity: 0;
-        transform: translateX(-15px);
-      }
+    /* ===== HEADER ===== */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
     }
 
-    /* ===== FOOTER ===== */
     footer {
       text-align: center;
       margin-top: 28px;
       font-size: 14px;
-      opacity: 0.7;
+      opacity: .7;
     }
   </style>
 </head>
@@ -107,20 +144,35 @@
 <body>
   <div class="container">
 
+    <!-- HEADER -->
+    <div class="topbar">
+      <div></div>
+      <button onclick="toggleTheme()">🌙 / ☀️</button>
+    </div>
+
     <h1>🧠 KnowLedge Quiz</h1>
 
-    <!-- CHỌN MÔN -->
+    <!-- SETUP -->
     <label for="subjectSelect">📘 Chọn môn học</label><br>
     <select id="subjectSelect"></select><br>
-
-    <!-- PHẢI KHỚP script.js -->
     <button id="startBtn">▶ Bắt đầu</button>
 
     <!-- TIMER -->
     <p id="timer">⏰ 50:00</p>
 
+    <!-- PROGRESS -->
+    <div id="progressWrap">
+      <div id="progressText">Câu 1 / 100</div>
+      <div id="progressBar">
+        <div id="progressFill"></div>
+      </div>
+    </div>
+
     <!-- QUIZ -->
     <div id="quiz"></div>
+
+    <!-- NAVIGATOR -->
+    <div id="navigator"></div>
 
     <!-- SUBMIT -->
     <button id="submitBtn" style="display:none;">📝 Nộp bài</button>
@@ -135,7 +187,21 @@
 
   </div>
 
-  <!-- GIỮ NGUYÊN SCRIPT CŨ -->
+  <!-- DARK MODE SCRIPT -->
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      localStorage.setItem(
+        "theme",
+        document.body.classList.contains("dark") ? "dark" : "light"
+      );
+    }
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+    }
+  </script>
+
+  <!-- QUIZ SCRIPT -->
   <script src="questions.js"></script>
   <script src="script.js"></script>
 </body>
