@@ -1,8 +1,7 @@
 let questions=[], current=0, score=0;
 let selected=null, locked=false;
-let states=[], history=[];
-let time=50*60, timer;
-let startTime=0;
+let states=[], history=[], wrongList=[];
+let time=50*60, timer, startTime=0;
 
 const quiz=document.getElementById("quiz");
 const timerEl=document.getElementById("timer");
@@ -25,15 +24,13 @@ function shuffle(a){
 }
 
 startBtn.onclick=()=>{
-  if(!subjectSelect.value) return alert("Chọn môn");
   questions=shuffle([...subjects[subjectSelect.value]]);
-  current=0; score=0;
+  current=0; score=0; wrongList=[];
   states=Array(questions.length).fill(null);
+  navigatorEl.style.display="flex";
   result.innerHTML="";
   startTime=Date.now();
-  buildNav();
-  startTimer();
-  show();
+  buildNav(); startTimer(); show();
 };
 
 function startTimer(){
@@ -82,17 +79,11 @@ function show(){
   quiz.innerHTML=`
   <div class="question">
     <b>Câu ${current+1}:</b> ${q.question}<br><br>
-
     ${q.options.map((o,i)=>`
       <label><input type="radio" name="a" value="${i}"> ${o}</label><br>
     `).join("")}
 
-    <div style="
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      margin-top:10px;
-    ">
+    <div style="display:flex;justify-content:space-between;margin-top:10px;">
       <button id="check">🔍 Kiểm tra</button>
       <button id="next" style="display:none;">➡️ Câu tiếp theo</button>
       <button id="submit">📝 Nộp bài</button>
@@ -108,21 +99,12 @@ function show(){
   });
 
   document.getElementById("check").onclick=check;
-
-  document.getElementById("next").onclick=()=>{
-    if(current<questions.length-1){ current++; show(); }
-    else finish();
-  };
-
-  document.getElementById("submit").onclick=()=>{
-    if(confirm("Nộp bài?")) finish();
-  };
+  document.getElementById("next").onclick=()=>{ current<questions.length-1 ? (current++,show()) : finish(); };
+  document.getElementById("submit").onclick=()=>{ if(confirm("Nộp bài?")) finish(); };
 }
 
 function check(){
-  if(locked) return;
-  if(selected===null) return alert("Chọn đáp án");
-
+  if(locked||selected===null) return;
   locked=true;
   let q=questions[current];
   let fb=document.getElementById("fb");
@@ -133,6 +115,12 @@ function check(){
   }else{
     states[current]="wrong";
     fb.innerHTML="❌ SAI";
+    wrongList.push({
+      index:current+1,
+      question:q.question,
+      correct:q.options[q.answer],
+      selected:q.options[selected]
+    });
   }
 
   document.getElementById("next").style.display="inline-block";
@@ -142,18 +130,59 @@ function check(){
 function finish(){
   clearInterval(timer);
   quiz.innerHTML="";
-  let total=questions.length;
-  let percent=Math.round(score/total*100);
-  let spent=Math.round((Date.now()-startTime)/1000);
+  navigatorEl.style.display="none";
+
+  const total=questions.length;
+  const correct=score;
+  const wrong=total-correct;
+  const percent=Math.round(correct/total*100);
+  const spent=Math.round((Date.now()-startTime)/1000);
+
   history=JSON.parse(localStorage.getItem("history")||"[]");
-  history.push({date:new Date().toLocaleString(),percent});
+  history.push({date:new Date().toLocaleString(),correct,total,percent,spent});
   localStorage.setItem("history",JSON.stringify(history));
 
   result.innerHTML=`
-    <h3>📊 Kết quả</h3>
-    <p>${score}/${total} (${percent}%)</p>
+    <h3>📊 KẾT QUẢ</h3>
+    <p>✅ ${correct} | ❌ ${wrong} | ${percent}%</p>
     <p>⏱ ${Math.floor(spent/60)}:${String(spent%60).padStart(2,"0")}</p>
-    <h4>Lịch sử</h4>
-    ${history.slice(-5).map(h=>`<div>${h.date}: ${h.percent}%</div>`).join("")}
-    <br><button onclick="location.reload()">🔁 Làm lại</button>`;
+
+    <canvas id="chart" width="220" height="220"></canvas>
+
+    <h4>📋 Câu sai</h4>
+    ${wrongList.length?wrongList.map(w=>`
+      <div>
+        <b>Câu ${w.index}:</b> ${w.question}<br>
+        ❌ ${w.selected}<br>
+        ✅ ${w.correct}
+      </div>`).join(""):"🎉 Không có câu sai"}
+
+    <h4>🕘 Lịch sử</h4>
+    ${history.slice(-5).map(h=>`${h.date}: ${h.percent}%`).join("<br>")}
+
+    <br><br>
+    <button onclick="window.print()">📄 Xuất PDF</button>
+    <button onclick="location.reload()">🔁 Làm lại</button>
+  `;
+
+  drawChart(correct,wrong);
+}
+
+function drawChart(ok,fail){
+  const c=document.getElementById("chart");
+  const ctx=c.getContext("2d");
+  const total=ok+fail;
+  const angle=(ok/total)*Math.PI*2;
+
+  ctx.beginPath();
+  ctx.moveTo(110,110);
+  ctx.fillStyle="#22c55e";
+  ctx.arc(110,110,100,0,angle);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.moveTo(110,110);
+  ctx.fillStyle="#ef4444";
+  ctx.arc(110,110,100,angle,Math.PI*2);
+  ctx.fill();
 }
