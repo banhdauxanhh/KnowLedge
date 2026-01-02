@@ -4,6 +4,7 @@ let score = 0;
 let wrong = [];
 let timer = 50 * 60;
 let interval;
+let selectedAnswer = null;
 
 const quizEl = document.getElementById("quiz");
 const timerEl = document.getElementById("timer");
@@ -16,7 +17,6 @@ for (let s in subjects) {
   select.innerHTML += `<option value="${s}">${s}</option>`;
 }
 
-// trộn mảng
 function shuffle(arr) {
   return arr.sort(() => Math.random() - 0.5);
 }
@@ -32,7 +32,7 @@ function startQuiz() {
 
   quizEl.innerHTML = "";
   resultEl.innerHTML = "";
-  submitBtn.style.display = "block";
+  submitBtn.style.display = "none";
 
   startTimer();
   renderQuestion();
@@ -51,37 +51,66 @@ function startTimer() {
 }
 
 function renderQuestion() {
+  selectedAnswer = null;
   const q = questions[currentIndex];
+
   quizEl.innerHTML = `
     <div class="question">
       <p><b>Câu ${currentIndex + 1}:</b> ${q.question}</p>
+
       ${q.options.map((o, i) => `
         <label>
-          <input type="radio" name="opt" onclick="check(${i})">
+          <input type="radio" name="opt" onclick="selectAnswer(${i})">
           ${o}
         </label><br>
       `).join("")}
+
+      <button onclick="checkAnswer()">🔍 Kiểm tra</button>
+      <div id="feedback"></div>
     </div>
   `;
 }
 
-function check(choice) {
+function selectAnswer(index) {
+  selectedAnswer = index;
+}
+
+function checkAnswer() {
+  if (selectedAnswer === null) {
+    alert("Hãy chọn một đáp án!");
+    return;
+  }
+
   const q = questions[currentIndex];
   const labels = document.querySelectorAll("label");
+  const feedback = document.getElementById("feedback");
 
   labels.forEach((l, i) => {
     if (i === q.answer) l.classList.add("correct");
-    if (i === choice && choice !== q.answer) l.classList.add("wrong");
+    if (i === selectedAnswer && selectedAnswer !== q.answer)
+      l.classList.add("wrong");
   });
 
-  if (choice === q.answer) score++;
-  else wrong.push(q);
+  if (selectedAnswer === q.answer) {
+    score++;
+    feedback.innerHTML = `<p class="correct">✅ ĐÚNG</p>`;
+  } else {
+    wrong.push(q);
+    feedback.innerHTML = `<p class="wrong">❌ SAI</p>`;
+  }
 
-  setTimeout(() => {
-    currentIndex++;
-    if (currentIndex < questions.length) renderQuestion();
-    else submitQuiz();
-  }, 800);
+  quizEl.innerHTML += `
+    <button onclick="nextQuestion()">➡️ Câu tiếp theo</button>
+  `;
+}
+
+function nextQuestion() {
+  currentIndex++;
+  if (currentIndex < questions.length) {
+    renderQuestion();
+  } else {
+    submitQuiz();
+  }
 }
 
 function submitQuiz() {
@@ -90,8 +119,6 @@ function submitQuiz() {
   localStorage.setItem("wrong", JSON.stringify(wrong));
 
   quizEl.innerHTML = "";
-  submitBtn.style.display = "none";
-
   resultEl.innerHTML = `
     <h3>🎯 Kết quả</h3>
     <p>Điểm: ${score} / ${questions.length}</p>
@@ -101,11 +128,6 @@ function submitQuiz() {
 
 function reviewWrong() {
   const w = JSON.parse(localStorage.getItem("wrong")) || [];
-  if (w.length === 0) {
-    resultEl.innerHTML += "<p>🎉 Không có câu sai!</p>";
-    return;
-  }
-
   quizEl.innerHTML = w.map((q, i) => `
     <div class="question">
       <p><b>Câu sai ${i + 1}:</b> ${q.question}</p>
