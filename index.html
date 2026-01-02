@@ -1,30 +1,154 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+
+  <!-- FIX LỖI ZOOM / GIAO DIỆN IPHONE -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+
   <title>KnowLedge Quiz</title>
+
+  <style>
+    /* ================= RESET + IOS FIX ================= */
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px; /* QUAN TRỌNG CHỐNG ZOOM */
+      margin: 0;
+      padding: 16px;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ================= THEME VARIABLES ================= */
+    :root {
+      --bg: #ffffff;
+      --text: #000000;
+      --card: #f5f5f5;
+      --border: #dddddd;
+      --btn: #eaeaea;
+      --btn-text: #000000;
+    }
+
+    body.dark {
+      --bg: #121212;
+      --text: #f1f1f1;
+      --card: #1e1e1e;
+      --border: #2c2c2c;
+      --btn: #2a2a2a;
+      --btn-text: #f1f1f1;
+    }
+
+    /* ================= LAYOUT ================= */
+    .container {
+      max-width: 720px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    label {
+      font-weight: 500;
+    }
+
+    select,
+    button {
+      font-size: 16px;
+      padding: 8px 12px;
+      margin-top: 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--btn);
+      color: var(--btn-text);
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    #timer {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 12px;
+    }
+
+    .question {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 12px;
+      background: var(--card);
+    }
+
+    #submitBtn {
+      margin-top: 16px;
+    }
+
+    /* ================= DARK MODE BUTTON ================= */
+    .theme-toggle {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 
 <body>
+  <div class="container">
 
-<h1>🧠 KnowLedge Quiz</h1>
+    <!-- DARK MODE -->
+    <div class="theme-toggle">
+      <button onclick="toggleTheme()">🌙 / ☀️</button>
+    </div>
 
-<label>📘 Chọn môn học</label><br>
-<select id="subjectSelect"></select>
-<br><br>
+    <h1>🧠 KnowLedge Quiz</h1>
 
-<button id="startBtn">▶ Bắt đầu</button>
+    <!-- SETUP -->
+    <label for="subjectSelect">📘 Chọn môn học</label><br>
+    <select id="subjectSelect"></select><br>
 
-<p id="timer">⏰ 50:00</p>
+    <!-- FIX: ID PHẢI KHỚP SCRIPT -->
+    <button id="startBtn">▶ Bắt đầu</button>
 
-<div id="quiz"></div>
+    <!-- TIMER -->
+    <p id="timer">⏰ 50:00</p>
 
-<button id="submitBtn" style="display:none;">📝 Nộp bài</button>
+    <!-- QUIZ -->
+    <div id="quiz"></div>
 
-<div id="result"></div>
+    <!-- SUBMIT -->
+    <button id="submitBtn" style="display:none;">📝 Nộp bài</button>
 
-<script src="questions.js"></script>
-<script src="script.js"></script>
+    <!-- RESULT -->
+    <div id="result"></div>
+
+  </div>
+
+  <!-- DARK MODE SCRIPT (KHÔNG ẢNH HƯỞNG QUIZ) -->
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      localStorage.setItem(
+        "theme",
+        document.body.classList.contains("dark") ? "dark" : "light"
+      );
+    }
+
+    // Giữ theme khi reload
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark");
+    }
+  </script>
+
+  <!-- GIỮ NGUYÊN SCRIPT QUIZ -->
+  <script src="questions.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
