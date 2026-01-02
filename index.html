@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>KnowLedge Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🧠 KnowLedge Quiz</h1>
+
+<div class="container">
+
+  <label for="subjectSelect">📘 Chọn môn học</label>
+  <select id="subjectSelect">
+    <option value="">-- Chọn môn học --</option>
+  </select>
+
+  <button onclick="startQuiz()">▶️ Bắt đầu</button>
+
+  <div id="timer"></div>
+  <div id="quiz"></div>
+
+  <button id="submitBtn" onclick="submitQuiz()" style="display:none">
+    📝 Nộp bài
+  </button>
+
+  <div id="result"></div>
+
+</div>
+
+<script src="questions.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
