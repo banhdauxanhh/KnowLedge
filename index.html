@@ -3,29 +3,19 @@
 <head>
   <meta charset="UTF-8">
 
-  <!-- FIX LỖI ZOOM / GIAO DIỆN IPHONE -->
+  <!-- FIX GIAO DIỆN IPHONE -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
 
   <title>KnowLedge Quiz</title>
 
   <style>
-    /* ================= RESET + IOS FIX ================= */
+    /* ===== IOS ZOOM FIX ===== */
     html {
       -webkit-text-size-adjust: 100%;
     }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 16px; /* QUAN TRỌNG CHỐNG ZOOM */
-      margin: 0;
-      padding: 16px;
-      background: var(--bg);
-      color: var(--text);
-      transition: background 0.3s, color 0.3s;
-    }
-
-    /* ================= THEME VARIABLES ================= */
+    /* ===== THEME VARIABLES ===== */
     :root {
       --bg: #ffffff;
       --text: #000000;
@@ -44,7 +34,17 @@
       --btn-text: #f1f1f1;
     }
 
-    /* ================= LAYOUT ================= */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px; /* QUAN TRỌNG CHỐNG ZOOM */
+      margin: 0;
+      padding: 16px;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ===== LAYOUT ===== */
     .container {
       max-width: 720px;
       margin: auto;
@@ -52,7 +52,7 @@
 
     h1 {
       text-align: center;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     label {
@@ -91,11 +91,19 @@
       margin-top: 16px;
     }
 
-    /* ================= DARK MODE BUTTON ================= */
+    /* ===== DARK MODE BUTTON ===== */
     .theme-toggle {
       display: flex;
       justify-content: flex-end;
       margin-bottom: 10px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 14px;
+      opacity: 0.7;
     }
   </style>
 </head>
@@ -114,7 +122,7 @@
     <label for="subjectSelect">📘 Chọn môn học</label><br>
     <select id="subjectSelect"></select><br>
 
-    <!-- FIX: ID PHẢI KHỚP SCRIPT -->
+    <!-- PHẢI KHỚP SCRIPT.JS -->
     <button id="startBtn">▶ Bắt đầu</button>
 
     <!-- TIMER -->
@@ -129,9 +137,14 @@
     <!-- RESULT -->
     <div id="result"></div>
 
+    <!-- COPYRIGHT -->
+    <footer>
+      © 2026 Hoai Nam. All rights reserved.
+    </footer>
+
   </div>
 
-  <!-- DARK MODE SCRIPT (KHÔNG ẢNH HƯỞNG QUIZ) -->
+  <!-- DARK MODE SCRIPT -->
   <script>
     function toggleTheme() {
       document.body.classList.toggle("dark");
@@ -147,7 +160,7 @@
     }
   </script>
 
-  <!-- GIỮ NGUYÊN SCRIPT QUIZ -->
+  <!-- QUIZ SCRIPT -->
   <script src="questions.js"></script>
   <script src="script.js"></script>
 </body>
