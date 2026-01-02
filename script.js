@@ -96,8 +96,35 @@ function checkAnswer() {
 
 function finish() {
   quiz.innerHTML = "";
+
+  const total = questions.length;
+  const percent = Math.round((score / total) * 100);
+
+  let rank = "";
+  let color = "";
+
+  if (percent >= 90) {
+    rank = "🟢 Xuất sắc";
+    color = "green";
+  } else if (percent >= 75) {
+    rank = "🔵 Tốt";
+    color = "blue";
+  } else if (percent >= 50) {
+    rank = "🟡 Đạt";
+    color = "orange";
+  } else {
+    rank = "🔴 Chưa đạt";
+    color = "red";
+  }
+
   result.innerHTML = `
-    <h3>🎯 Kết quả</h3>
-    <p>Điểm: ${score} / ${questions.length}</p>
+    <h3>🎯 KẾT QUẢ BÀI THI</h3>
+    <p>✔ Số câu đúng: <b>${score}</b> / ${total}</p>
+    <p>📊 Phần trăm: <b>${percent}%</b></p>
+    <p style="color:${color}; font-size:18px;">
+      🏅 Xếp loại: <b>${rank}</b>
+    </p>
+
+    <button onclick="location.reload()">🔁 Làm lại</button>
   `;
 }
