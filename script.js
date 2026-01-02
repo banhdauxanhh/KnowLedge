@@ -78,9 +78,11 @@ function updateNav(){
 function show(){
   locked=false; selected=null;
   let q=questions[current];
+
   quiz.innerHTML=`
   <div class="question">
     <b>Câu ${current+1}:</b> ${q.question}<br><br>
+
     ${q.options.map((o,i)=>`
       <label><input type="radio" name="a" value="${i}"> ${o}</label><br>
     `).join("")}
@@ -92,7 +94,7 @@ function show(){
       margin-top:10px;
     ">
       <button id="check">🔍 Kiểm tra</button>
-      <button id="next" disabled>➡️ Câu tiếp theo</button>
+      <button id="next" style="display:none;">➡️ Câu tiếp theo</button>
       <button id="submit">📝 Nộp bài</button>
     </div>
 
@@ -120,6 +122,7 @@ function show(){
 function check(){
   if(locked) return;
   if(selected===null) return alert("Chọn đáp án");
+
   locked=true;
   let q=questions[current];
   let fb=document.getElementById("fb");
@@ -132,7 +135,7 @@ function check(){
     fb.innerHTML="❌ SAI";
   }
 
-  document.getElementById("next").disabled=false;
+  document.getElementById("next").style.display="inline-block";
   updateNav();
 }
 
