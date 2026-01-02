@@ -12,18 +12,23 @@ const progressText=document.getElementById("progressText");
 const progressFill=document.getElementById("progressFill");
 const navigatorEl=document.getElementById("navigator");
 
-for(let s in subjects)
+/* load subjects */
+for(let s in subjects){
   subjectSelect.innerHTML+=`<option value="${s}">${s}</option>`;
+}
 
+/* shuffle */
 function shuffle(a){
   for(let i=a.length-1;i>0;i--){
-    let j=Math.floor(Math.random()*(i+1));
+    const j=Math.floor(Math.random()*(i+1));
     [a[i],a[j]]=[a[j],a[i]];
   }
   return a;
 }
 
+/* start */
 startBtn.onclick=()=>{
+  if(!subjectSelect.value) return alert("Chọn môn học");
   questions=shuffle([...subjects[subjectSelect.value]]);
   current=0; score=0; wrongList=[];
   states=Array(questions.length).fill(null);
@@ -33,12 +38,13 @@ startBtn.onclick=()=>{
   buildNav(); startTimer(); show();
 };
 
+/* timer */
 function startTimer(){
   clearInterval(timer);
   time=50*60;
   timer=setInterval(()=>{
     time--;
-    let m=Math.floor(time/60), s=time%60;
+    const m=Math.floor(time/60), s=time%60;
     timerEl.innerText=`⏰ ${m}:${String(s).padStart(2,"0")}`;
     if(time<=60){ timerEl.style.color="red"; navigator.vibrate?.(80); }
     else if(time<=300) timerEl.style.color="orange";
@@ -47,22 +53,23 @@ function startTimer(){
   },1000);
 }
 
+/* progress */
 function updateProgress(){
   progressText.innerText=`Câu ${current+1} / ${questions.length}`;
   progressFill.style.width=((current+1)/questions.length*100)+"%";
 }
 
+/* navigator */
 function buildNav(){
   navigatorEl.innerHTML="";
   questions.forEach((_,i)=>{
-    let b=document.createElement("button");
+    const b=document.createElement("button");
     b.className="nav";
     b.innerText=i+1;
     b.onclick=()=>{ current=i; show(); };
     navigatorEl.appendChild(b);
   });
 }
-
 function updateNav(){
   [...navigatorEl.children].forEach((b,i)=>{
     b.className="nav";
@@ -72,9 +79,10 @@ function updateNav(){
   });
 }
 
+/* show question */
 function show(){
   locked=false; selected=null;
-  let q=questions[current];
+  const q=questions[current];
 
   quiz.innerHTML=`
   <div class="question">
@@ -99,15 +107,20 @@ function show(){
   });
 
   document.getElementById("check").onclick=check;
-  document.getElementById("next").onclick=()=>{ current<questions.length-1 ? (current++,show()) : finish(); };
-  document.getElementById("submit").onclick=()=>{ if(confirm("Nộp bài?")) finish(); };
+  document.getElementById("next").onclick=()=>{
+    current<questions.length-1 ? (current++,show()) : finish();
+  };
+  document.getElementById("submit").onclick=()=>{
+    if(confirm("Nộp bài?")) finish();
+  };
 }
 
+/* check */
 function check(){
   if(locked||selected===null) return;
   locked=true;
-  let q=questions[current];
-  let fb=document.getElementById("fb");
+  const q=questions[current];
+  const fb=document.getElementById("fb");
 
   if(selected===q.answer){
     score++; states[current]="ok";
@@ -122,11 +135,11 @@ function check(){
       selected:q.options[selected]
     });
   }
-
   document.getElementById("next").style.display="inline-block";
   updateNav();
 }
 
+/* finish + statistics */
 function finish(){
   clearInterval(timer);
   quiz.innerHTML="";
@@ -138,26 +151,37 @@ function finish(){
   const percent=Math.round(correct/total*100);
   const spent=Math.round((Date.now()-startTime)/1000);
 
+  let rankText="", rankColor="";
+  if(percent<50){ rankText="❌ Chưa Đạt 😡"; rankColor="red"; }
+  else if(percent<=70){ rankText="✅ Đạt 🥸"; rankColor="orange"; }
+  else{ rankText="🌟 Tốt 🥳"; rankColor="green"; }
+
   history=JSON.parse(localStorage.getItem("history")||"[]");
-  history.push({date:new Date().toLocaleString(),correct,total,percent,spent});
+  history.push({date:new Date().toLocaleString(),percent});
   localStorage.setItem("history",JSON.stringify(history));
 
   result.innerHTML=`
     <h3>📊 KẾT QUẢ</h3>
     <p>✅ ${correct} | ❌ ${wrong} | ${percent}%</p>
+    <p style="font-size:18px;font-weight:bold;color:${rankColor};">
+      ${rankText}
+    </p>
     <p>⏱ ${Math.floor(spent/60)}:${String(spent%60).padStart(2,"0")}</p>
 
     <canvas id="chart" width="220" height="220"></canvas>
 
     <h4>📋 Câu sai</h4>
-    ${wrongList.length?wrongList.map(w=>`
-      <div>
-        <b>Câu ${w.index}:</b> ${w.question}<br>
-        ❌ ${w.selected}<br>
-        ✅ ${w.correct}
-      </div>`).join(""):"🎉 Không có câu sai"}
+    ${wrongList.length
+      ? wrongList.map(w=>`
+        <div>
+          <b>Câu ${w.index}:</b> ${w.question}<br>
+          ❌ ${w.selected}<br>
+          ✅ ${w.correct}
+        </div>`).join("")
+      : "🎉 Không có câu sai"
+    }
 
-    <h4>🕘 Lịch sử</h4>
+    <h4>🕘 Lịch sử 5 lần gần nhất</h4>
     ${history.slice(-5).map(h=>`${h.date}: ${h.percent}%`).join("<br>")}
 
     <br><br>
@@ -168,6 +192,7 @@ function finish(){
   drawChart(correct,wrong);
 }
 
+/* chart */
 function drawChart(ok,fail){
   const c=document.getElementById("chart");
   const ctx=c.getContext("2d");
