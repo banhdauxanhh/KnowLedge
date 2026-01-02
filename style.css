@@ -1,0 +1,22 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  padding: 15px;
+}
+
+h1 { text-align: center; }
+
+.question {
+  background: #fff;
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 8px;
+}
+
+.correct { color: green; font-weight: bold; }
+.wrong { color: red; font-weight: bold; }
+
+button {
+  padding: 10px;
+  margin-top: 10px;
+}
