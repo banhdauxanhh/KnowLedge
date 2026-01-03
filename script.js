@@ -117,28 +117,39 @@ function show(){
 
 /* check */
 function check(){
-  if(locked||selected===null) return;
-  locked=true;
-  const q=questions[current];
-  const fb=document.getElementById("fb");
+  if(locked || selected === null) return;
+  locked = true;
 
-  if(selected===q.answer){
-    score++; states[current]="ok";
-    fb.innerHTML="✅ ĐÚNG";
+  const q = questions[current];
+  const fb = document.getElementById("fb");
+
+  if(selected === q.answer){
+    score++;
+    states[current] = "ok";
+    fb.innerHTML = "✅ ĐÚNG";
   }else{
-    states[current]="wrong";
-    fb.innerHTML="❌ SAI";
+    states[current] = "wrong";
+
+    const correctText = q.options[q.answer];
+
+    fb.innerHTML = `
+      <span style="color:red;font-weight:bold;">❌ SAI</span>
+      <span style="margin-left:8px;color:#22c55e;">
+        | ✅ Đáp án đúng: <b>${correctText}</b>
+      </span>
+    `;
+
     wrongList.push({
-      index:current+1,
-      question:q.question,
-      correct:q.options[q.answer],
-      selected:q.options[selected]
+      index: current + 1,
+      question: q.question,
+      correct: correctText,
+      selected: q.options[selected]
     });
   }
-  document.getElementById("next").style.display="inline-block";
+
+  document.getElementById("next").style.display = "inline-block";
   updateNav();
 }
-
 /* finish + statistics */
 function finish(){
   clearInterval(timer);
