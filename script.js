@@ -147,6 +147,18 @@ function check(){
     });
   }
 
+  // ✅ TÔ MÀU ĐÁP ÁN
+  const labels = quiz.querySelectorAll("label");
+  labels.forEach((label, i) => {
+    if (i === q.answer) {
+      label.style.color = "#22c55e";
+      label.style.fontWeight = "bold";
+    }
+    if (i === selected && selected !== q.answer) {
+      label.style.color = "#ef4444";
+    }
+  });
+
   document.getElementById("next").style.display = "inline-block";
   updateNav();
 }
