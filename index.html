@@ -28,21 +28,19 @@ body{
 }
 
 .container{ max-width:760px; margin:auto; }
-h1{text-align:center}
+h1{ text-align:center; }
 
 select,button{
-  font-size:16px;
-  padding:10px;
+  font-size:16px; padding:8px 12px;
   border-radius:8px;
   border:1px solid var(--border);
-  background:var(--btn);
-  color:var(--text);
-  transition:.3s;
+  background:var(--btn); color:var(--text);
+  transition:background-color .3s,color .3s,border-color .3s;
 }
 
-#timer{ font-size:18px;font-weight:bold;margin:10px 0 }
+#timer{ font-size:18px;font-weight:bold;margin:8px 0; }
 
-#progressWrap{ margin:12px 0 }
+#progressWrap{ margin:12px 0; }
 #progressBar{
   height:8px;background:#e5e7eb;
   border-radius:6px;overflow:hidden;
@@ -61,21 +59,18 @@ select,button{
 }
 
 #navigator{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:12px;
+  display:flex;flex-wrap:wrap;
+  gap:6px;margin-top:12px;
 }
-
 .nav{
   width:32px;height:32px;
   border-radius:6px;
   border:1px solid var(--border);
   background:var(--btn);
 }
-.ok{background:#86efac}
-.wrong{background:#fca5a5}
-.cur{outline:2px solid var(--accent)}
+.ok{ background:#86efac; }
+.wrong{ background:#fca5a5; }
+.cur{ outline:2px solid var(--accent); }
 
 footer{
   margin-top:30px;
@@ -89,7 +84,7 @@ footer{
 <body>
 <div class="container">
 
-<div style="display:flex;justify-content:space-between">
+<div style="display:flex;justify-content:space-between;">
   <div></div>
   <button onclick="toggleTheme()">🌙 / ☀️</button>
 </div>
